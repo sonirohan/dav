@@ -70,12 +70,15 @@ module vga(
   // in the sequential block, we update hc and vc based on their current values
   always_ff @(posedge vgaclk)
   begin
-    /* TODO(2): update the counters, paying careful attention to
-              a) the reset condition, and
-              b) the conditions that cause hc and vc to go back to 0
-    */
-    hc <= 0;
-    vc <= 0;
+    if(hc > 799 || rst)
+        hc <= 0;
+    else
+        hc <= hc + 1;
+    
+    if(vc > 524 || rst)
+      vc <= 0;
+    else
+     vc <= vc + 1;
   end
 
   /* TODO(3): when should hsync and vsync go low?
