@@ -83,8 +83,24 @@ module vga(
 
   /* TODO(3): when should hsync and vsync go low?
   */
-  assign hsync = 1;
-  assign vsync = 1;
+  always_comb begin
+    if(hc > HPIXELS + HFP && hc <= HPIXELS + HFP + HSPULSE) begin
+      hsync = 0;
+    end
+    else begin
+      hsync = 1;
+    end
+    
+    if(vc > VPIXELS + VFP && vc <= VPIXELS + VFP + VSPULSE) begin
+      vsync = 0;
+    end
+    else begin
+      vsync = 1;
+    end
+    
+  end
+  // assign hsync = 1;
+  // assign vsync = 1;
 
   // in the combinational block, we set red, green, blue outputs
   always_comb
