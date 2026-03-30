@@ -111,15 +111,16 @@ module vga(
   // in the combinational block, we set red, green, blue outputs
   always_comb
   begin
-    /*  TODO(4): check if we're within the active video range;
-            if we are, drive the RGB outputs with the input color values
-            if not, we're in the blanking interval, so set them all to 0
-        NOTE: our inputs are fewer bits than the outputs,
-              so left-shift accordingly!
-    */
-    red = 0;
-    green = 0;
-    blue = 0;
+    if (hc > HPIXELS || vc > VPIXELS) begin
+        red = 4'b0000;
+        green = 4'b0000;
+        blue = 4'b0000;
+    end
+    else begin
+        red = input_red << 1;
+        green = input_green << 1;
+        blue = input_blue << 2;
+    end
   end
 
 endmodule
