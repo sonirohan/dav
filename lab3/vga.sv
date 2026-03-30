@@ -22,11 +22,6 @@ module vga(
     output logic [3:0] blue
   );
 
-  /*  TODO(1): VGA protocol constants
-         Fill out the constants below with the correct values.
-         You can find these described in the VGA specification
-         for a 640x480 display.
-  */
   localparam HPIXELS  = 640;    // number of visible pixels per horizontal line
   localparam HFP      = 16;    // length (in pixels) of horizontal front porch
   localparam HSPULSE  = 96;    // length (in pixels) of hsync pulse
@@ -94,8 +89,6 @@ module vga(
 
   end
 
-  /* TODO(3): when should hsync and vsync go low?
-  */
   always_comb begin
     if(hc > HPIXELS + HFP && hc <= HPIXELS + HFP + HSPULSE) begin
       hsync = 0;
