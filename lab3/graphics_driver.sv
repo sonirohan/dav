@@ -1,8 +1,6 @@
 module graphics_driver (
     input logic [9:0] hc_in,
     input logic [9:0] vc_in,
-    input logic clk,
-    input logic rst,
 
     output logic [2:0] red,
     output logic [2:0] green,

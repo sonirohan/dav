@@ -23,10 +23,8 @@ module top (
     logic [2:0] intermediate_green;
     logic [1:0] intermediate_blue;
     graphics_driver clanker_graphics_driver (
-        .hc_in(hc), 
-        .vc_in(vc),  // this and hc_out get incremented by the vga module
-        .clk(vgaclk),
-        .rst(rst),
+        .hc_in(hc),
+        .vc_in(vc),
         .red(intermediate_red),
         .green(intermediate_green),
         .blue(intermediate_blue)

@@ -14,10 +14,12 @@ logic [7:0] buffer_out_2 [0:767];
 
 
 always_ff @(posedge vgaclk) begin
-    if(hc_in == 0 && vc_in == 0) begin
+    if (rst) begin
+        buffer_write_switch <= 0;
+    end else if (hc_in == 0 && vc_in == 0) begin
         buffer_write_switch <= !buffer_write_switch;
     end
-    end
+end
 
 // writing to the buffer on every clock cycle, we will write to one buffer while the other is being read by the graphics driver
 always_ff @(posedge vgaclk) begin
