@@ -5,7 +5,7 @@ module top (
     output logic vsync, // vertical sync signal to VGA
     output logic [3:0] red, // 4-bit red signal to VGA
     output logic [3:0] green, // 4-bit green signal to VGA
-    output logic [3:0] blue // 4-bit blue signal to VGA
+    output logic [3:0] blue // 4-bi t blue signal to VGA
    );
 
    logic vgaclk; // 25 MHz clock for VGA timing
@@ -28,5 +28,5 @@ module top (
         .red(red),
         .green(green),
         .blue(blue)
-    )
+    );
 endmodule
