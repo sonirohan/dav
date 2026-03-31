@@ -72,6 +72,21 @@ module vga(
     end
 
     else begin
+      if (hc >= 799) begin
+        hc <= 0;
+        if (vc >= 524) begin
+          vc <= 0;
+        end else begin
+        vc <= vc + 1;
+        end 
+      end else begin
+        hc <= hc + 1;
+      end
+    end
+
+    end
+    /*
+    else begin
       if (vc >= 524) begin
         vc <= 0;
         hc <= 0;
@@ -86,18 +101,18 @@ module vga(
         end
       end      
     end
-
-  end
+    end
+    */
 
   always_comb begin
-    if(hc > HPIXELS + HFP && hc <= HPIXELS + HFP + HSPULSE) begin
+    if(hc >= HPIXELS + HFP && hc < HPIXELS + HFP + HSPULSE) begin
       hsync = 0;
     end
     else begin
       hsync = 1;
     end
     
-    if(vc > VPIXELS + VFP && vc <= VPIXELS + VFP + VSPULSE) begin
+    if(vc >= VPIXELS + VFP && vc < VPIXELS + VFP + VSPULSE) begin
       vsync = 0;
     end
     else begin
@@ -111,7 +126,7 @@ module vga(
   // in the combinational block, we set red, green, blue outputs
   always_comb
   begin
-    if (hc > HPIXELS || vc > VPIXELS) begin
+    if (hc >= HPIXELS || vc >= VPIXELS) begin
         red = 4'b0000;
         green = 4'b0000;
         blue = 4'b0000;

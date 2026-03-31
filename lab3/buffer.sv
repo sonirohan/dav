@@ -6,7 +6,8 @@ module buffer(
     input logic [2:0] red_in,
     input logic [2:0] green_in,
     input logic [1:0] blue_in,
-    output logic [7:0] buffer_out [0:767]
+    input logic [9:0] buffer_index,
+    output logic [7:0] buffer_out
 );
 logic buffer_write_switch = 0; // this will switch between writing to buffer_out_1 and buffer_out_2
 logic [7:0] buffer_out_1 [0:767];
@@ -34,9 +35,9 @@ end
 
 always_comb begin
     if(buffer_write_switch) begin
-        buffer_out = buffer_out_2;
+        buffer_out = buffer_out_2[buffer_index];
     end else begin
-        buffer_out = buffer_out_1;
+        buffer_out = buffer_out_1[buffer_index];
     end
 end
 endmodule

@@ -30,7 +30,12 @@ module top (
         .blue(intermediate_blue)
     );
 
-    logic [7:0] buffer_output [0:767]; // this will be the output of the buffer module that we will connect to the graphics driver later
+    // We want the vga to read from a 32x24 buffer but it needs data for each pixel
+    // therefore we will divide out hc and vc by 20 to get the pixel in the buffer array (0 to 767)
+    logic [9:0] buffer_index;
+    logic [7:0] color;
+    assign buffer_index = (vc / 20) * 32 + (hc / 20);
+
     buffer clanker_buffer (
         .vgaclk(vgaclk),
         .rst(rst),
@@ -39,16 +44,10 @@ module top (
         .red_in(intermediate_red), // max red
         .green_in(intermediate_green), // no green
         .blue_in(intermediate_blue), // no blue
-        .buffer_out(buffer_output) // we will connect this to the graphics driver later
+        .buffer_index(buffer_index),
+        .buffer_out(color) // we will connect this to the graphics driver later
     );
-    
-    // We want the vga to read from a 32x24 buffer but it needs data for each pixel
-    // therefore we will divide out hc and vc by 20 to get the pixel in the buffer array (0 to 767)
-    logic [9:0] buffer_index;
-    logic [7:0] color;
-    assign buffer_index = (vc / 20) * 32 + (hc / 20);
-    assign color = buffer_output[buffer_index];
-    
+        
     vga clanker_vga (
         .vgaclk(vgaclk),
         .rst(rst),
@@ -63,6 +62,8 @@ module top (
         .green(green),
         .blue(blue)
     );
-
+    always @(posedge vgaclk) begin
+        $display("Red: %b Green: %b Blue: %b", red, green, blue);
+    end
 
 endmodule
