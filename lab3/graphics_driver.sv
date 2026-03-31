@@ -12,7 +12,7 @@ module graphics_driver (
     logic xpos = hc_out / 20;
     logic ypos = vc_out / 20;
 
-    logic address = ypos * 640 + xpos; // calculate the pixel address based on the horizontal and vertical counters
+    logic address = ypos * 32 + xpos; // calculate the pixel address based on the horizontal and vertical counters
     
     // BELOW IS THE CODE THAT WAS FROM THE ASSIGNMENT
     localparam BLK = 8'h00;
@@ -49,6 +49,10 @@ module graphics_driver (
         BLK,    BLK,    BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,    BLK,    BLK,    BLK,   BLK,   BLK,   BLK,   BLK,   BLK    // 23
     };
 
+    // assign the output color values by slicing up the 8-bit color from the sprite
+    red = color[7:5];
+    green = color[4:2];
+    blue = color[1:0];
 
 
 endmodule
