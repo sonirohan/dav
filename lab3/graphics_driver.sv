@@ -6,7 +6,7 @@ module graphics_driver (
 
     output logic [3:0] red,
     output logic [3:0] green,
-    output logic [3:0] blue,
+    output logic [3:0] blue
 );
 
     logic xpos = hc_out / 20;
