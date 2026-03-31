@@ -46,9 +46,11 @@ module top (
     
     // We want the vga to read from a 32x24 buffer but it needs data for each pixel
     // therefore we will divide out hc and vc by 20 to get the pixel in the buffer array (0 to 767)
-    logic [9:0] buffer_index = (vc_out / 20) * 32 + (hc_out / 20); // calculate the pixel address based on the horizontal and vertical counters
-    logic [7:0] color = buffer_output[buffer_index]; // get the color from the buffer output at the calculated index
-
+    logic [9:0] buffer_index;
+    logic [7:0] color;
+    assign buffer_index = (vc / 20) * 32 + (hc / 20);
+    assign color = buffer_output[buffer_index];
+    
     vga clanker_vga (
         .vgaclk(vgaclk),
         .rst(rst),

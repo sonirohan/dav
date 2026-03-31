@@ -14,17 +14,19 @@ logic [7:0] buffer_out_2 [0:767];
 
 
 always_ff @(posedge vgaclk) begin
-    if(hc == 0 && vc == 0) begin
+    if(hc_in == 0 && vc_in == 0) begin
         buffer_write_switch <= !buffer_write_switch;
     end
     end
 
 // writing to the buffer on every clock cycle, we will write to one buffer while the other is being read by the graphics driver
 always_ff @(posedge vgaclk) begin
-    if(buffer_write_switch) begin
-        buffer_out_1[(vc/20)*32 + hc/20] <= {red_in, green_in, blue_in};
-    end else begin
-        buffer_out_2[(vc/20)*32 + hc/20] <= {red_in, green_in, blue_in};
+    if (vc_in < 480 && hc_in < 640) begin // only write to the buffer if we are in the visible area of the screen
+        if(buffer_write_switch) begin
+            buffer_out_1[(vc_in/20)*32 + hc_in/20] <= {red_in, green_in, blue_in};
+        end else begin
+            buffer_out_2[(vc_in/20)*32 + hc_in/20] <= {red_in, green_in, blue_in};
+        end
     end
 end
 
