@@ -8,11 +8,19 @@ module top (
     output logic [3:0] blue // 4-bit blue signal to VGA
    );
 
-    logic vgaclk; // 25 MHz clock for VGA timing
+    logic vgaclk_unbuffered; 
+    logic vgaclk; 
+
     clock_divider clanker_divider (
-         .clk_in(clk),
-         .rst(rst),
-         .pulse_out(vgaclk)
+        .clk_in(clk),
+        .rst(rst),
+        .pulse_out(vgaclk_unbuffered)
+    );
+
+    // Force the generated clock onto the dedicated clock network
+    BUFG clock_buffer (
+        .I(vgaclk_unbuffered),
+        .O(vgaclk)
     );
 
     logic [9:0] hc; // horizontal counter output from VGA module

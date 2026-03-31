@@ -31,4 +31,5 @@ set_property IOSTANDARD LVCMOS33 [get_ports hsync]
 set_property IOSTANDARD LVCMOS33 [get_ports rst]
 set_property IOSTANDARD LVCMOS33 [get_ports vsync]
 
+create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} [get_ports clk]
 create_generated_clock -name vgaclk -source [get_ports clk] -divide_by 4 [get_pins clanker_divider/pulse_out_reg/Q]
