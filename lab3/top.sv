@@ -17,6 +17,9 @@ module top (
          .rst(rst),
          .pulse_out(vgaclk)
     );
+
+    // TODO WE Want the vga to read from a 32x24 buffer but it needs data for each pixel
+    // therefore we will divide out hc and vc by 20 to get the pixel in the buffer
     vga clanker_vga (
         .vgaclk(vgaclk),
         .rst(rst),
@@ -40,6 +43,16 @@ module top (
         .red(red),
         .green(green),
         .blue(blue)
+    );
+
+    buffer clanker_buffer (
+        .vgaclk(vgaclk),
+        .rst(rst),
+        .hc(hc_out),
+        .vc(vc_out),
+        .red_in(3'b111), // max red
+        .green_in(3'b000), // no green
+        .blue_in(2'b00) // no blue
     );
 
 endmodule
