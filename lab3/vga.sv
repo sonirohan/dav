@@ -63,28 +63,23 @@ module vga(
   assign vc_out = vc;
 
   // in the sequential block, we update hc and vc based on their current values
-  always_ff @(posedge vgaclk)
-  begin
-    
-    if (rst) begin
-      hc <= 0;
-      vc <= 0;
-    end
-
-    else begin
-      if (hc >= 799) begin
-        hc <= 0;
-        if (vc >= 524) begin
+  always_ff @(posedge vgaclk) begin
+      if (rst) begin
+          hc <= 0;
           vc <= 0;
-        end else begin
-        vc <= vc + 1;
-        end 
       end else begin
-        hc <= hc + 1;
+          if (hc >= 799) begin
+              hc <= 0;
+              if (vc >= 524) begin
+                  vc <= 0;
+              end else begin
+                  vc <= vc + 1;
+              end
+          end else begin
+              hc <= hc + 1;
+          end
       end
-    end
-
-    end
+  end
     /*
     else begin
       if (vc >= 524) begin
