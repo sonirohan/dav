@@ -9,6 +9,8 @@ module top (
    );
 
    logic vgaclk; // 25 MHz clock for VGA timing
+   logic [9:0] hc_out; // horizontal counter output from VGA module
+   logic [9:0] vc_out; // vertical counter output from VGA module
 
     clock_divider clanker_divider (
          .clk_in(clk),
@@ -21,12 +23,23 @@ module top (
         .input_red(3'b111), // max red
         .input_green(3'b000), // no green
         .input_blue(2'b00), // no blue
-        .hc_out(), // TODO USE LATER
-        .vc_out(), // TODO USE LATER
+        .hc_out(hc_out),
+        .vc_out(vc_out),
         .hsync(hsync),
         .vsync(vsync),
         .red(red),
         .green(green),
         .blue(blue)
     );
+
+    graphics_driver clanker_graphics_driver (
+        .hc_out(hc_out), 
+        .vc_out(vc_out), 
+        .clk(vgaclk),
+        .rst(rst),
+        .red(red),
+        .green(green),
+        .blue(blue)
+    );
+
 endmodule

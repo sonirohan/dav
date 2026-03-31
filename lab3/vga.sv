@@ -19,7 +19,7 @@ module vga(
     // expects 12 bits for color
     output logic [3:0] red,
     output logic [3:0] green,
-    output logic [3:0] blue
+    output logic [3:0] blue,
   );
 
   localparam HPIXELS  = 640;    // number of visible pixels per horizontal line
