@@ -72,12 +72,12 @@ module vga(
     end
 
     else begin
-      if (vc > 524) begin
+      if (vc >= 524) begin
         vc <= 0;
         hc <= 0;
       end
       else begin
-        if(hc > 799) begin
+        if(hc >= 799) begin
             hc <= 0;
             vc <= vc + 1;
         end

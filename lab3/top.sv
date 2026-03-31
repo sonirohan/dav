@@ -15,16 +15,16 @@ module top (
          .pulse_out(vgaclk)
     );
 
-    logic [9:0] hc_out; // horizontal counter output from VGA module
-    logic [9:0] vc_out; // vertical counter output from VGA module
+    logic [9:0] hc; // horizontal counter output from VGA module
+    logic [9:0] vc; // vertical counter output from VGA module
 
     // Produces the correct 8-bit color values for each pixel
     logic [2:0] intermediate_red;
     logic [2:0] intermediate_green;
     logic [1:0] intermediate_blue;
     graphics_driver clanker_graphics_driver (
-        .hc_out(hc_out), 
-        .vc_out(vc_out),  // this and hc_out get incremented by the vga module
+        .hc_in(hc), 
+        .vc_in(vc),  // this and hc_out get incremented by the vga module
         .clk(vgaclk),
         .rst(rst),
         .red(intermediate_red),
@@ -32,21 +32,21 @@ module top (
         .blue(intermediate_blue)
     );
 
-    logic buffer_output [0:767]; // this will be the output of the buffer module that we will connect to the graphics driver later
+    logic [7:0] buffer_output [0:767]; // this will be the output of the buffer module that we will connect to the graphics driver later
     buffer clanker_buffer (
         .vgaclk(vgaclk),
         .rst(rst),
-        .hc(hc_out),
-        .vc(vc_out),
+        .hc_in(hc),
+        .vc_in(vc),
         .red_in(intermediate_red), // max red
         .green_in(intermediate_green), // no green
         .blue_in(intermediate_blue), // no blue
         .buffer_out(buffer_output) // we will connect this to the graphics driver later
     );
     
-        // We want the vga to read from a 32x24 buffer but it needs data for each pixel
+    // We want the vga to read from a 32x24 buffer but it needs data for each pixel
     // therefore we will divide out hc and vc by 20 to get the pixel in the buffer array (0 to 767)
-    logic buffer_index = (vc_out / 20) * 32 + (hc_out / 20); // calculate the pixel address based on the horizontal and vertical counters
+    logic [9:0] buffer_index = (vc_out / 20) * 32 + (hc_out / 20); // calculate the pixel address based on the horizontal and vertical counters
     logic [7:0] color = buffer_output[buffer_index]; // get the color from the buffer output at the calculated index
 
     vga clanker_vga (
@@ -55,8 +55,8 @@ module top (
         .input_red(color[7:5]), 
         .input_green(color[4:2]), 
         .input_blue(color[1:0]), 
-        .hc_out(hc_out),
-        .vc_out(vc_out),
+        .hc_out(hc),
+        .vc_out(vc),
         .hsync(hsync),
         .vsync(vsync),
         .red(red),

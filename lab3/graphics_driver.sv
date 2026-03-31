@@ -1,6 +1,6 @@
 module graphics_driver (
-    input logic [9:0] hc_out,
-    input logic [9:0] vc_out,
+    input logic [9:0] hc_in,
+    input logic [9:0] vc_in,
     input logic clk,
     input logic rst,
 
@@ -9,18 +9,17 @@ module graphics_driver (
     output logic [3:0] blue
 );
 
-    logic xpos = hc_out / 20;
-    logic ypos = vc_out / 20;
+    logic [4:0] xpos = hc_out / 20;
+    logic [4:0] ypos = vc_out / 20;
 
-    logic address = ypos * 32 + xpos; // calculate the pixel address based on the horizontal and vertical counters
+    logic [9:0] address = ypos * 32 + xpos; // calculate the pixel address based on the horizontal and vertical counters
     
     // BELOW IS THE CODE THAT WAS FROM THE ASSIGNMENT
     localparam BLK = 8'h00;
     localparam WHT = 8'hff;
     localparam RED = 8'he0;
     localparam BLU = 8'h03;
-
-    assign color = test_sprite[address];
+    logic [7:0] color;
     logic [7:0] test_sprite [0:767] = '{ 
         //  0       1       2      3      4      5      6      7      8      9      10     11     12     13     14     15     16     17     18     19     20     21     22     23      24      25      26     27     28     29     30     31      
         BLK,    BLK,    BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,    BLK,    BLK,    BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   // 0
@@ -49,10 +48,12 @@ module graphics_driver (
         BLK,    BLK,    BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,   BLK,    BLK,    BLK,    BLK,   BLK,   BLK,   BLK,   BLK,   BLK    // 23
     };
 
+    assign color = test_sprite[address];
+
     // assign the output color values by slicing up the 8-bit color from the sprite
-    red = color[7:5];
-    green = color[4:2];
-    blue = color[1:0];
+    assign red = color[7:5];
+    assign green = color[4:2];
+    assign blue = color[1:0];
 
 
 endmodule

@@ -1,8 +1,8 @@
 module buffer(
     input logic vgaclk, // 25 MHz clock for VGA timing
     input logic rst,
-    input logic [9:0] hc,
-    input logic [9:0] vc,
+    input logic [9:0] hc_in,
+    input logic [9:0] vc_in,
     input logic [2:0] red_in,
     input logic [2:0] green_in,
     input logic [1:0] blue_in,
@@ -22,9 +22,9 @@ always_ff @(posedge vgaclk) begin
 // writing to the buffer on every clock cycle, we will write to one buffer while the other is being read by the graphics driver
 always_ff @(posedge vgaclk) begin
     if(buffer_write_switch) begin
-        buffer_out_1[vc*32 + hc] <= {red_in, green_in, blue_in};
+        buffer_out_1[(vc/20)*32 + hc/20] <= {red_in, green_in, blue_in};
     end else begin
-        buffer_out_2[vc*32 + hc] <= {red_in, green_in, blue_in};
+        buffer_out_2[(vc/20)*32 + hc/20] <= {red_in, green_in, blue_in};
     end
 end
 
