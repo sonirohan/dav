@@ -1,5 +1,5 @@
-module butterfly_unit(
-    parameter WIDTH = 32 
+module butterfly_unit #(
+    parameter WIDTH = 32
     )(
         input logic signed [WIDTH-1:0] a,
         input logic signed [WIDTH-1:0] b, // complex operands
