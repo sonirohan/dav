@@ -21,7 +21,7 @@ module butterfly_unit #(
     logic prod3 [WIDTH-1:0]; // w_imag * b_real
     logic prod4 [WIDTH-1:0]; // w_real * b_imag
 
-    logic multiplied [WIDTH-1:0]; // the result of multiplying w and b, which is a complex number
+    logic w_times_b [WIDTH-1:0]; // the result of multiplying w and b, which is a complex number
 
     always_comb begin
         prod1 = real_part_w * real_part_b;
