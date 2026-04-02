@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps  // Define time unit / precision
+
 module fsm(
     input logic [31:0] time_signal_a,
     input logic [31:0] time_signal_b,

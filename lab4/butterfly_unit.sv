@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps  // Define time unit / precision
+
 module butterfly_unit #(
     parameter WIDTH = 32
     )(
@@ -8,22 +10,23 @@ module butterfly_unit #(
         output logic signed [WIDTH-1:0] out2 // bottom complex outputs
     );
 
-    // split the inputs into their components
-    logic real_part_a = a[WIDTH-1:WIDTH/2];
-    logic imag_part_a = a[WIDTH/2-1:0];
-    logic real_part_b = b[WIDTH-1:WIDTH/2];
-    logic imag_part_b = b[WIDTH/2-1:0];
-    logic real_part_w = w[WIDTH-1:WIDTH/2];
-    logic imag_part_w = w[WIDTH/2-1:0];
+    logic [WIDTH-1:0] prod1; // w_real * b_real
+    logic [WIDTH-1:0] prod2; // w_imag * b_imag
+    logic [WIDTH-1:0] prod3; // w_imag * b_real
+    logic [WIDTH-1:0] prod4; // w_real * b_imag
 
-    logic prod1 [WIDTH-1:0]; // w_real * b_real
-    logic prod2 [WIDTH-1:0]; // w_imag * b_imag
-    logic prod3 [WIDTH-1:0]; // w_imag * b_real
-    logic prod4 [WIDTH-1:0]; // w_real * b_imag
-
-    logic w_times_b [WIDTH-1:0]; // the result of multiplying w and b, which is a complex number
+    logic [WIDTH-1:0] w_times_b; // the result of multiplying w and b, which is a complex number
 
     always_comb begin
+
+        // split the inputs into their components
+        logic [WIDTH/2-1:0] real_part_a = a[WIDTH-1:WIDTH/2];
+        logic [WIDTH/2-1:0] imag_part_a = a[WIDTH/2-1:0];
+        logic [WIDTH/2-1:0] real_part_b = b[WIDTH-1:WIDTH/2];
+        logic [WIDTH/2-1:0] imag_part_b = b[WIDTH/2-1:0];
+        logic [WIDTH/2-1:0] real_part_w = w[WIDTH-1:WIDTH/2];
+        logic [WIDTH/2-1:0] imag_part_w = w[WIDTH/2-1:0];
+
         prod1 = real_part_w * real_part_b;
         prod2 = imag_part_w * imag_part_b;
         prod3 = imag_part_w * real_part_b;
