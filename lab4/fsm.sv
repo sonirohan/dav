@@ -95,7 +95,6 @@ always_comb begin
             completed = 1'b1;
         end
 
-        end
     endcase
 end
 
@@ -155,3 +154,4 @@ when stage 1 is entered combinationally wire the inputs to the unit
 then on the next clock cycle we see that the state is stage 1. we can wire the output of the butterfly unit to our mid logics so it could be used. set stage to stage2.
 in our combinational block we should see that stage is 2 then wire the mids into the unit inputs
 then on the next clock cycle we see that the state is stage 2. we can then set the outputs of the unit to the fsm outputs and set completed to high 
+*/
