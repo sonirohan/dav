@@ -16,8 +16,8 @@ module fsm(
     output logic completed
 );
 
-localparam w_0 = 1;
-localparam w_1 = 1;
+localparam w_0 = 32'b01111111111111110000000000000000;
+localparam w_1 = 32'b00000000000000001000000000000000;
 
 logic [31:0] mid_0;
 logic [31:0] mid_1;
