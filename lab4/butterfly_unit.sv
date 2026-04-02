@@ -4,8 +4,8 @@ module butterfly_unit #(
         input logic signed [WIDTH-1:0] a,
         input logic signed [WIDTH-1:0] b, // complex operands
         input logic signed [WIDTH-1:0] w, // twiddle factor
-        output logic signed [WIDTH-1:0] out1,
-        output logic signed [WIDTH-1:0] out2 // complex outputs
+        output logic signed [WIDTH-1:0] out1, // top
+        output logic signed [WIDTH-1:0] out2 // bottom complex outputs
     );
 
     // split the inputs into their components
