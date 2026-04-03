@@ -2,41 +2,48 @@ import re
 
 # 1. Define the inputs driven in the testbench
 inputs = [
-    # TC0: Simple impulse
+    # TC1: Lab 4 Spec Input: 10, 15, 20, 25 (scaled to fit in 32 bits)
+    (0x000a0000, 0x000f0000, 0x00140000, 0x00190000),
+    # TC2: Simple impulse
     (0x00000001, 0x00000000, 0x00000000, 0x00000000),
-    # TC1: Step input
+    # TC3: Step input
     (0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF),
-    # TC2: Ramp input
+    # TC4: Ramp input
     (0x00000000, 0x00000001, 0x00000002, 0x00000003),
-    # TC3: Sinusoidal input
+    # TC5: Sinusoidal input
     (0x00007FFF, 0x0000B504, 0x0000D504, 0x0000E504),
-    # TC4: Random input
+    # TC6: Random input
     (0x12345678, 0x9ABCDEF0, 0x0F0F0F0F, 0xF0F0F0F0)
 ]
 
 # Raw output copied from your simulation console
 sim_output_text = """
 Starting Testcase 0: Driving new sample
+Output A: 00430000
+Output B: fff70009
+Output C: fff70000
+Output D: fff7fff7
+Starting Testcase 1: Driving new sample
 Output A: 00000001
 Output B: 00000001
 Output C: 00000001
 Output D: 00000001
-Starting Testcase 1: Driving new sample
+Starting Testcase 2: Driving new sample
 Output A: fffcfffc
 Output B: 00000000
 Output C: 00000000
 Output D: 00000000
-Starting Testcase 2: Driving new sample
+Starting Testcase 3: Driving new sample
 Output A: 00000003
 Output B: ffffffff
 Output C: 0000ffff
 Output D: 0001ffff
-Starting Testcase 3: Driving new sample
+Starting Testcase 4: Driving new sample
 Output A: 0000ef0b
 Output B: d000aafb
 Output C: 0000bafb
 Output D: 3000aafb
-Starting Testcase 4: Driving new sample
+Starting Testcase 5: Driving new sample
 Output A: acee3566
 Output B: f1269d9e
 Output C: 959695a6

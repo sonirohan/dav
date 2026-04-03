@@ -61,18 +61,22 @@ module fsm_tb ();
         @(posedge clk);
         rst <= 0;
 
-        // Testcase 1: Simple impulse input
+        // Testcase 1: Lab 4 Spec Input: 10, 15, 20, 25
+        drive_sample(32'h000a_0000, 32'h000f_0000, 32'h0014_0000, 32'h0019_0000);
+
+        // Testcase 2: Simple impulse input
         drive_sample(32'h00000001, 32'h00000000, 32'h00000000, 32'h00000000);
 
+        // Testcase 3: Max value input
         drive_sample(32'hFFFFFFFF, 32'hFFFFFFFF, 32'hFFFFFFFF, 32'hFFFFFFFF);
 
-        // Testcase 3: Ramp input
+        // Testcase 4: Ramp input
         drive_sample(32'h00000000, 32'h00000001, 32'h00000002, 32'h00000003);
 
-        // Testcase 4: Sinusoidal input (scaled to fit in 32 bits)
+        // Testcase 5: Sinusoidal input (scaled to fit in 32 bits)
         drive_sample(32'h00007FFF, 32'h0000B504, 32'h0000D504, 32'h0000E504);
 
-        // Testcase 5: Random input
+        // Testcase 6: Random input
         drive_sample(32'h12345678, 32'h9ABCDEF0, 32'h0F0F0F0F, 32'hF0F0F0F0);
 
         $finish;
