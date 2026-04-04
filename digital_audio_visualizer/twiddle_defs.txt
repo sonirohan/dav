@@ -1,0 +1,13 @@
+// --- 64-Point FFT Twiddle Factors ---
+// Formula: W_n^k = cos(2*pi*k/n) - j*sin(2*pi*k/n)
+// Format: Hex (Upper half: Real, Lower half: Imaginary)
+// Scaling: Q15 Format (Multiplied by 32767)
+
+localparam logic [WIDTH-1:0] bfu_w_0_64 = 32'h7FFF0000; localparam logic [WIDTH-1:0] bfu_w_1_64 = 32'h7F61F374; localparam logic [WIDTH-1:0] bfu_w_2_64 = 32'h7D89E707; localparam logic [WIDTH-1:0] bfu_w_3_64 = 32'h7A7CDAD8;
+localparam logic [WIDTH-1:0] bfu_w_4_64 = 32'h7641CF05; localparam logic [WIDTH-1:0] bfu_w_5_64 = 32'h70E2C3AA; localparam logic [WIDTH-1:0] bfu_w_6_64 = 32'h6A6DB8E4; localparam logic [WIDTH-1:0] bfu_w_7_64 = 32'h62F1AECD;
+localparam logic [WIDTH-1:0] bfu_w_8_64 = 32'h5A82A57E; localparam logic [WIDTH-1:0] bfu_w_9_64 = 32'h51339D0F; localparam logic [WIDTH-1:0] bfu_w_10_64 = 32'h471C9593; localparam logic [WIDTH-1:0] bfu_w_11_64 = 32'h3C568F1E;
+localparam logic [WIDTH-1:0] bfu_w_12_64 = 32'h30FB89BF; localparam logic [WIDTH-1:0] bfu_w_13_64 = 32'h25288584; localparam logic [WIDTH-1:0] bfu_w_14_64 = 32'h18F98277; localparam logic [WIDTH-1:0] bfu_w_15_64 = 32'h0C8C809F;
+localparam logic [WIDTH-1:0] bfu_w_16_64 = 32'h00008001; localparam logic [WIDTH-1:0] bfu_w_17_64 = 32'hF374809F; localparam logic [WIDTH-1:0] bfu_w_18_64 = 32'hE7078277; localparam logic [WIDTH-1:0] bfu_w_19_64 = 32'hDAD88584;
+localparam logic [WIDTH-1:0] bfu_w_20_64 = 32'hCF0589BF; localparam logic [WIDTH-1:0] bfu_w_21_64 = 32'hC3AA8F1E; localparam logic [WIDTH-1:0] bfu_w_22_64 = 32'hB8E49593; localparam logic [WIDTH-1:0] bfu_w_23_64 = 32'hAECD9D0F;
+localparam logic [WIDTH-1:0] bfu_w_24_64 = 32'hA57EA57E; localparam logic [WIDTH-1:0] bfu_w_25_64 = 32'h9D0FAECD; localparam logic [WIDTH-1:0] bfu_w_26_64 = 32'h9593B8E4; localparam logic [WIDTH-1:0] bfu_w_27_64 = 32'h8F1EC3AA;
+localparam logic [WIDTH-1:0] bfu_w_28_64 = 32'h89BFCF05; localparam logic [WIDTH-1:0] bfu_w_29_64 = 32'h8584DAD8; localparam logic [WIDTH-1:0] bfu_w_30_64 = 32'h8277E707; localparam logic [WIDTH-1:0] bfu_w_31_64 = 32'h809FF374;
